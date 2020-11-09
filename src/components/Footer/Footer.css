@@ -1,0 +1,139 @@
+.footer {
+    display: flex;
+    align-items: center;
+    background-color: #fff;
+    width: 100%;
+    max-width: 1440px;
+    min-height: 80px;
+    padding-left: 104px;
+    padding-right: 104px;
+    box-sizing: border-box;
+}
+
+.footer__copyright {
+    color: #b6bcbf;
+    margin: 0 auto 0 0;
+    font-family: 'Roboto', Arial, sans-serif;
+    font-style: normal;
+    font-weight: normal;
+    font-size: 1rem;
+    line-height: 1.375rem;
+}
+
+.footer__container {
+    display: flex;
+    align-items: center;
+    padding: 0;
+    margin: 0;
+    list-style: none;
+}
+
+.footer__links {
+    display: flex;
+}
+
+.footer__main-link {
+    color: #1a1b22;
+    text-decoration: none;
+    width: 112px;
+    text-align: center;
+    display: inline-block;
+    font-family: 'Roboto', Arial, sans-serif;
+    font-style: normal;
+    font-weight: normal;
+    font-size: 1.125rem;
+    line-height: 1.5rem;
+}
+
+.footer__praktikum-link {
+    display: inline-block;
+    color: #1a1b22;
+    text-decoration: none;
+    width: 192px;
+    text-align: center;
+    margin-right: 42px;
+    font-family: 'Roboto', Arial, sans-serif;
+    font-style: normal;
+    font-weight: normal;
+    font-size: 1.125rem;
+    line-height: 1.5rem;
+}
+
+.footer__icon {
+    height: 20px;
+    margin-right: 28px;
+}
+
+.footer__icon-link {
+    height: 20px;
+    display: inline-block;
+}
+
+.footer__icon:last-of-type {
+    margin-right: 0;
+}
+
+.footer__icon-image {
+    width: 20px;
+    height: 20px;
+}
+
+@media screen and (max-width: 1023px) {
+    .footer {
+        padding-left: 40px;
+        padding-right: 40px;
+        min-height: 64px;
+    }
+
+    .footer__main-link {
+        width: 88px;
+    }
+
+    .footer__praktikum-link {
+        width: 176px;
+        margin-right: 24px;
+    }
+}
+
+@media screen and (max-width: 767px) {
+    .footer {
+        flex-direction: column;
+        align-items: flex-start;
+        padding: 20px 40px 22px;
+    }
+
+    .footer__container {
+        align-items: flex-start;
+        order: 1;
+    }
+
+    .footer__copyright {
+        order: 2;
+        margin-top: 38px;
+    }
+
+
+    .footer__links {
+        display: flex;
+        flex-direction: column;
+        width: 200px;
+        margin-right: 18px;
+    }
+
+    .footer__main-link {
+        text-align: left;
+        margin-bottom: 26px;
+    }
+
+    .footer__praktikum-link {
+        text-align: left;
+        margin-right: 0;
+    }
+}
+
+@media screen and (max-width: 424px) {
+    .footer {
+        padding-left: 16px;
+        padding-right: 16px;
+    }
+}
