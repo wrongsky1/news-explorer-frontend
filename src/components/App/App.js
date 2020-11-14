@@ -6,8 +6,8 @@ import Header from '../Header/Header';
 import Main from '../Main/Main';
 // import SavedNews from '../SavedNews/SavedNews';
 import Footer from '../Footer/Footer';
-// import LoginPopup from '../LoginPopup/LoginPopup';
-// import RegisterPopup from '../RegisterPopup/RegisterPopup';
+import LoginPopup from '../LoginPopup/LoginPopup';
+import RegisterPopup from '../RegisterPopup/RegisterPopup';
 
 
 function App() {
@@ -56,8 +56,8 @@ function App() {
         </Switch>
         <Footer />
 
-        {/* <LoginPopup />
-        <RegisterPopup /> */}
+        <LoginPopup />
+        <RegisterPopup />
     </div>
 )
 }
