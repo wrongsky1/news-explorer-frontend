@@ -113,7 +113,7 @@
     width: 40px;
     height: 40px;
     padding: 0;
-    background-image: url('../../images/close-button.svg');
+    background-image: url('../../images/buttons/close-button.svg');
     background-position: center;
     position: absolute;
     border: none;

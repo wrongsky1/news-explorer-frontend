@@ -2,8 +2,8 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 
 import './Navigation.css';
-import logoutIcon from '../../images/logout.svg';
-import logoutIconDark from '../../images/logout-dark.svg';
+import logoutIcon from '../../images/buttons/logout.svg';
+import logoutIconDark from '../../images/buttons/logout-dark.svg';
 import { CurrentUserContext } from '../../contexts/CurrentUserContext';
 
 function Navigation(props) {

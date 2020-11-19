@@ -90,14 +90,14 @@
     right: 24px;
     border: none;
     border-radius: 8px;
-    background-image: url('../../images/save-button.svg');
+    background-image: url('../../images/buttons/save-button.svg');
     background-position: center;
     background-repeat: no-repeat;
 }
 
 .news-card__save-button:hover {
     cursor: pointer;
-    background-image: url('../../images/save-button-hover.svg');
+    background-image: url('../../images/buttons/save-button-hover.svg');
 }
 
 .news-card__save-button_not-logged:hover::before {
@@ -124,7 +124,7 @@
 }
 
 .news-card__save-button_saved {
-    background-image: url('../../images/save-button-saved.svg');
+    background-image: url('../../images/buttons/save-button-saved.svg');
 }
 
 .news-card__delete-button {
@@ -136,14 +136,14 @@
     right: 24px;
     border: none;
     border-radius: 8px;
-    background-image: url('../../images/delete-button.svg');
+    background-image: url('../../images/buttons/delete-button.svg');
     background-position: center;
     background-repeat: no-repeat;
 }
 
 .news-card__delete-button:hover {
     cursor: pointer;
-    background-image: url('../../images/delete-button-hover.svg');
+    background-image: url('../../images/buttons/delete-button-hover.svg');
 }
 
 .news-card__delete-button:hover::before {

@@ -55,7 +55,7 @@
 }
 
 .popup__close-button {
-    background-image: url('../../images/close-button.svg');
+    background-image: url('../../images/buttons/close-button.svg');
     background-position: center;
     position: absolute;
     top: -46px;

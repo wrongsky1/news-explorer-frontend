@@ -47,13 +47,13 @@
     margin-bottom: 0;
 }
 
-@media screen and (max-width: 1279px) {
+@media screen and (max-width: 1350px) {
     .about {
         grid-template-columns: repeat(2, 1fr);
     }
 }
 
-@media screen and (max-width: 1023px) {
+@media screen and (max-width: 1050px) {
     .about {
         grid-template-columns: 232px 1fr;
         column-gap: 32px;
@@ -67,7 +67,7 @@
     }
 }
 
-@media screen and (max-width: 767px) {
+@media screen and (max-width: 800px) {
     .about {
         grid-template-columns: 1fr;
         column-gap: 0;
@@ -81,7 +81,7 @@
     }
 }
 
-@media screen and (max-width: 424px) {
+@media screen and (max-width: 550px) {
     .about__avatar {
         padding-left: 8px;
         padding-right: 8px;

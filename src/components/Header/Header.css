@@ -35,7 +35,7 @@
 
 .header__menu-button {
     display: none;
-    background-image: url('../../images/mobile-menu.svg');
+    background-image: url('../../images/buttons/mobile-menu.svg');
     background-color: transparent;
     width: 24px;
     height: 24px;
@@ -43,15 +43,15 @@
 }
 
 .header__menu-button_color_dark {
-    background-image: url('../../images/mobile-menu-dark.svg');
+    background-image: url('../../images/buttons/mobile-menu-dark.svg');
 }
 
 .header__menu-button_opened_white {
-    background-image: url('../../images/mobile-menu-opened.svg');
+    background-image: url('../../images/buttons/mobile-menu-opened.svg');
 }
 
 .header__menu-button_opened_dark {
-    background-image: url('../../images/mobile-menu-opened-dark.svg');
+    background-image: url('../../images/buttons/mobile-menu-opened-dark.svg');
 }
 
 @media screen and (max-width: 1350px) {

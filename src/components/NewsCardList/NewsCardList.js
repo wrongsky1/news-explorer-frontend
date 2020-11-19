@@ -1,7 +1,7 @@
 import React from 'react';
 
 import './NewsCardList.css';
-import notFoundIcon from '../../images/not-found.svg';
+import notFoundIcon from '../../images/icons/not-found.svg';
 import NewsCard from '../NewsCard/NewsCard';
 
 function NewsCardList(props) {

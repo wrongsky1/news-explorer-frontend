@@ -1,9 +1,9 @@
-import card_1 from '../images/card1.png';
-import card_2 from '../images/card2.png';
-import card_3 from '../images/card3.png';
-import card_4 from '../images/card4.png';
-import card_5 from '../images/card5.png';
-import card_6 from '../images/card6.png';
+import card_1 from '../images/cards/card1.png';
+import card_2 from '../images/cards/card2.png';
+import card_3 from '../images/cards/card3.png';
+import card_4 from '../images/cards/card4.png';
+import card_5 from '../images/cards/card5.png';
+import card_6 from '../images/cards/card6.png';
 
 export const searchExample = [
     {
