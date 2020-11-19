@@ -78,7 +78,7 @@
     height: 20px;
 }
 
-@media screen and (max-width: 1023px) {
+@media screen and (max-width: 1350px) {
     .footer {
         padding-left: 40px;
         padding-right: 40px;
@@ -95,7 +95,7 @@
     }
 }
 
-@media screen and (max-width: 767px) {
+@media screen and (max-width: 800px) {
     .footer {
         flex-direction: column;
         align-items: flex-start;
@@ -131,7 +131,7 @@
     }
 }
 
-@media screen and (max-width: 424px) {
+@media screen and (max-width: 550px) {
     .footer {
         padding-left: 16px;
         padding-right: 16px;

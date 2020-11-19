@@ -9,7 +9,7 @@
     margin-top: -80px;
   }
   
-  @media screen and (max-width: 767px) {
+  @media screen and (max-width: 800px) {
     .page__search-form {
       margin-top: 0;
     }

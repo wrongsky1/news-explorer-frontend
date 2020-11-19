@@ -54,7 +54,7 @@
     background-image: url('../../images/mobile-menu-opened-dark.svg');
 }
 
-@media screen and (max-width: 1023px) {
+@media screen and (max-width: 1350px) {
     .header {
         min-height: 66px;
         padding-left: 40px;
@@ -67,7 +67,7 @@
     }
 }
 
-@media screen and (max-width: 767px) {
+@media screen and (max-width: 800px) {
     .header {
         position: fixed;
         padding-left: 40px;
@@ -89,7 +89,7 @@
     }
 }
 
-@media screen and (max-width: 424px) {
+@media screen and (max-width: 550px) {
     .header {
         padding-left: 16px;
         padding-right: 16px;
