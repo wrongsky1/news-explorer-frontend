@@ -1,4 +1,4 @@
-import { KEY_API_NEWS, URL_NEWS } from './constans';
+import { KEY_API_NEWS, URL_NEWS } from './constants';
 
 // Находим новости по запросу
 export function searchNews(keyword) {
@@ -25,4 +25,3 @@ export function searchNews(keyword) {
         return Promise.reject(`Произошла ошибка: ${res.status}`);
       });
   }
-  

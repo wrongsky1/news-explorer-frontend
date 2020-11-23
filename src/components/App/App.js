@@ -11,6 +11,8 @@ import RegisterPopup from '../RegisterPopup/RegisterPopup';
 import SuccessfulPopup from '../SuccessfulPopup/SuccessfulPopup';
 import { CurrentUserContext } from '../../contexts/CurrentUserContext';
 import { searchExample, newsExample } from '../../utils/SomeArticles';
+import { searchNews } from '../../utils/NewsApi';
+import { register, authorize, getInfo, getSavedNews, saveArticle deleteArticle } from '../../utils/MainApi';
 
 
 function App() {

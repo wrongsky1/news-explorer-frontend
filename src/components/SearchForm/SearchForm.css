@@ -117,6 +117,16 @@
     background-color: #2a65cc;
 }
 
+.search-form__input-error {
+    color: #fff;
+    z-index: 0;
+    font-family: 'Inter', Arial, sans-serif;
+    font-style: normal;
+    font-weight: normal;
+    font-size: 0.75rem;
+    line-height: 0.9375rem;
+}
+
 @media screen and (max-width: 1050px) {
     .search-form {
         min-height: 400px;
