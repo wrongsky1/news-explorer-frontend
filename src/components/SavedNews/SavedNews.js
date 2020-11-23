@@ -9,14 +9,19 @@ function SavedNews(props) {
         props.setSavedNewsPageActive();
     })
 
+    React.useEffect(() => {
+        props.getSavedNews();
+    }, []);
+
+
     return (
         <>
             {
                 props.savedNews.length > 0
                     ?
                     <>
-                        <SavedNewsHeader savedNews={props.savedNews} />
-                        <NewsCardList savedNews={props.savedNews} />
+                        <SavedNewsHeader savedNews={props.savedNews} sortedKeywords={props.sortedKeywords} />
+                        <NewsCardList savedNews={props.savedNews} onDeleteButtonClick={props.onDeleteButtonClick} />
                     </>
                     :
                     <p>У Вас нет сохранённых статей</p>

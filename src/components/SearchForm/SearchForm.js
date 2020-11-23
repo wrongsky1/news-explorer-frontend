@@ -18,7 +18,7 @@ function SearchForm(props) {
                 <input className="search-form__input" type="text" placeholder="Введите тему новости" required value={props.query} onChange={props.onChange}/>
                 <button className="search-form__submit-button" type="submit">Искать</button>
             </form>
-            {props.searchQueryError && <p className="search-form__input-error">{props.searchQueryError}</p>}
+            {props.searchQueryError && <p className="search-form__input-error">{props.searchError}</p>}
         </section>
     )
 }
