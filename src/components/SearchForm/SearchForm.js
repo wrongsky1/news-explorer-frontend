@@ -1,26 +1,41 @@
-import React from 'react';
-
+import React, { useState } from 'react'
 import './SearchForm.css';
 
 function SearchForm(props) {
 
-    function handleSubmit(e) {
-        e.preventDefault();
-        props.onSearch();
+  const [keyword, setKeyword] = useState('');
+  const [inputError, setInputError] = useState(false)
+
+  function handleSubmit(e) {
+    e.preventDefault();
+    if (keyword === '') {
+      setInputError(true);
     }
-    return (
-        <section className="search-form page__search-form">
-            <div className="search-form__container">
-                <h1 className="search-form__title">Что творится в мире?</h1>
-                <p className="search-form__paragraph">Находите самые свежие статьи на любую тему и сохраняйте в своём личном кабинете.</p>
-            </div>
-            <form className="search-form__search-bar" onSubmit={handleSubmit} noValidate>
-                <input className="search-form__input" type="text" placeholder="Введите тему новости" required value={props.query} onChange={props.onChange}/>
-                <button className="search-form__submit-button" type="submit">Искать</button>
-            </form>
-            {props.searchQueryError && <p className="search-form__input-error">{props.searchError}</p>}
-        </section>
-    )
+    else if (keyword !== '') {
+      setInputError(false)
+      props.handleSearchNews(keyword);
+    }
+  }
+
+  return (
+    <section className="search">
+      <form className="search-form" onSubmit={handleSubmit} noValidate>
+      <h1 className="search-form__title">Что творится в мире?</h1>
+      <p className="search-form__paragraph">Находите самые свежие статьи на любую тему и сохраняйте в своём личном кабинете.</p>
+      <div className="search-form__search-bar">
+        <input
+        className="search-form__input"
+        placeholder="Введите тему новости"
+        required
+        onChange={ e => setKeyword(e.target.value)}
+        >
+        </input>
+        <span className={`search-form__input-error ${inputError ? 'search-form__input-error_active' : ''}`}>Введите ключевое слово</span>
+        <button className="search-form__submit-button">Искать</button>
+      </div>
+    </form>
+    </section>
+  )
 }
 
 export default SearchForm;
