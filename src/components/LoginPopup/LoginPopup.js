@@ -1,61 +1,61 @@
 import React from 'react';
 
 import './LoginPopup.css';
-import PopupWithForm from '../PopupWithForm/PopupWithForm';
+import PopupWithForm from '../PopupWithForm/PopupWithForm.js';
 
 function LoginPopup(props) {
 
-    function handleSubmit(e) {
-        e.preventDefault();
-        props.onLogin(props.values.email, props.values.password);
-    }
+  function handleSubmit(e) {
+    e.preventDefault();
+    props.onLogin(props.values.email, props.values.password);
+  }
 
-    return (
-        <PopupWithForm
-            formName="login"
-            title="Вход"
-            isOpen={props.isLoginPopupOpen}
-            onClose={props.onClose}
-            onSubmit={handleSubmit}
-            submitButtonText="Войти"
-            linkText="Зарегистрироваться"
-            onLinkClick={props.onLinkClick}
-            isValid={props.isValid}
+  return (
+    <PopupWithForm
+      name="login"
+      title="Вход"
+      submitButtonText={props.isLoading ? 'Загрузка' : 'Войти'}
+      isOpen={props.isOpen}
+      onClose={props.onClose}
+      linkText="Зарегистрироваться"
+      onLinkClick={props.onLinkClick}
+      isValid={props.isValid}
+      onSubmit={handleSubmit}
+    >
+      <fieldset className="popup__inputs">
+        <span className="popup__input-name">Email</span>
+        <input
+        className="popup__input"
+        required
+        placeholder="Введите почту"
+        type="email"
+        name="email"
+        minLength="2"
+        maxLength="30"
+        value={props.values.email || ''}
+        onChange={props.handleChange}
+        pattern="[a-zA-Z]+@[a-zA-Z]+\.[a-zA-Z]+"
         >
-            <p className="popup__input-name">Email</p>
-            <input 
-                className="popup__input" 
-                id="email-input" 
-                type="email" 
-                name="email"      
-                placeholder="Введите почту"
-                value={props.values.email || ''}
-                onChange={props.handleChange} 
-                required 
-                pattern="[a-zA-Z]+@[a-zA-Z]+\.[a-zA-Z]+"
-            />
-            <span className={props.errors.email ? "popup__input-error popup__input-error_visible" : "popup__input-error"}>
-                {props.errors.email}
-            </span>
+        </input>
+        <span className="popup__input-error">{props.error.email || ''}</span>
 
-            <p className="popup__input-name">Пароль</p>
-            <input 
-                className="popup__input" 
-                id="password-input" 
-                type="password" 
-                name="password"
-                placeholder="Введите пароль" 
-                required 
-                value={props.values.password || ''} 
-                onChange={props.handleChange}
-            />
-            <span className={props.errors.password ? "popup__input-error popup__input-error_visible" : "popup__input-error"}>
-                {props.errors.password}
-            </span>
-
-            <span className="popup__submit-error">{props.submitError}</span>
-        </PopupWithForm>
-    )
+        <span className="popup__input-name popup__input-name_margin">Пароль</span>
+        <input
+        className="popup__input"
+        required
+        placeholder="Введите пароль"
+        type="password"
+        name="password"
+        minLength="10"
+        maxLength="30"
+        value={props.values.password || ''}
+        onChange={props.handleChange}
+        >
+        </input>
+        <span className="popup__input-error">{props.error.password || ''}</span>
+      </fieldset>
+    </PopupWithForm>
+  )
 }
 
 export default LoginPopup;
