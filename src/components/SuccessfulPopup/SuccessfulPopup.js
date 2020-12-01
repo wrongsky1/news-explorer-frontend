@@ -3,15 +3,15 @@ import React from 'react';
 import './SuccessfulPopup.css';
 
 function SuccessfulPopup(props) {
-    return (
-      <div className={props.isOpen ? `popup popup_type_success popup_opened` : `popup popup_type_success`}>
-        <div className="popup__container">
-          <h2 className="popup__title">Пользователь успешно зарегистрирован!</h2>
-          <span className="popup__link" onClick={props.onLinkClick}>Войти</span>
-          <button className="popup__close-button" type="button" onClick={props.onClose} aria-label="Закрыть окно"></button>
-        </div>
+  return (
+    <div className={`popup ${props.isOpen ? 'popup_active' : ''}`}>
+      <div className="popup__container">
+        <button onClick={props.onClose} type="button" className="popup__close-button"></button>
+        <h2 className="popup__title-info">Пользователь успешно зарегистрирован!</h2>
+        <button onClick={props.onLinkClick} type="button" className="popup__button-link">Войти</button>
       </div>
-    )
-  }
-  
-  export default SuccessfulPopup;
+    </div>
+  )
+}
+
+export default SuccessfulPopup;

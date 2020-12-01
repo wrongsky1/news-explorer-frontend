@@ -1,87 +1,40 @@
-.popup {
-    background-color: rgba(0, 0, 0, 0.5);
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    display: flex;  
-    opacity: 0;  
-    visibility: hidden;
-    transition: visibility .3s, opacity .3s linear;
-    z-index: 2;
-}
-
-.popup:hover {
-    cursor: pointer;
-}
-
-.popup_opened {
-    opacity: 1;
-    visibility: visible;
-    transition: opacity .3s linear;
-    z-index: 3;
-}
-
-.popup__container {
-    background-color: #fff;
-    box-shadow: 0px 0px 25px rgba(0, 0, 0, 0.15);
-    flex-basis: 430px;
-    border-radius: 16px;
-    margin: auto;
-    display: flex;
-    flex-direction: column;
-    align-items: flex-start;
-    padding: 43px 79px 51px 36px;
-    box-sizing: border-box;
-    position: relative;
-}
-
-.popup__title {
+.popup__title-info {
     color: #000;
-    margin-top: 0;
-    margin-bottom: 14px;
     max-width: 315px;
-    font-family: 'Roboto', Arial, sans-serif;
-    font-style: normal;
+    margin: 43px auto 14px 36px;
+    font-family: 'Roboto', 'Arial', sans-serif;
     font-weight: 900;
-    font-size: 1.5rem;
-    line-height: 1.75rem;
+    font-size: 24px;
+    line-height: 28px; 
 }
-
-.popup__link {
-    font-size: 1.125rem;
-    line-height: 1.375rem;
-}
-
-.popup__close-button {
-    background-image: url('../../images/buttons/close-button.svg');
-    background-position: center;
-    position: absolute;
-    top: -46px;
-    right: -46px;
-    width: 40px;
-    height: 40px;
+  
+.popup__button-link {
+    color: #2f71e5;
+    max-width: 228px;
+    margin-left: 36px;
+    margin-bottom: 51px;
     padding: 0;
     border: none;
-    background-color: transparent;
-    transition: opacity .2s;
-}
-
-.popup__close-button:hover {
-    opacity: 0.6;
+    background: none;
+    outline: none;  
+    text-align: start;
     cursor: pointer;
+    font-family: 'Inter', 'Arial', sans-serif;
+    font-weight: 400;
+    font-size: 18px;
+    line-height: 22px;
 }
-
-@media screen and (max-width: 800px) {
-    .popup__container {
-        padding: 16px 16px 204px;
+  
+.popup__button-link:hover {
+    opacity: 0.6;
+}
+  
+@media screen and (max-width: 550px) {
+    .popup__title-info {
+      margin-left: 16px;
     }
-
-    .popup__close-button {
-        top: -46px;
-        right: 0;
-        width: 24px;
-        height: 24px;
+  
+    .popup__button-link {
+      margin-left: 16px;
     }
 }
