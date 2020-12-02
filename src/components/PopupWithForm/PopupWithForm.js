@@ -20,14 +20,14 @@ function PopupWithForm(props) {
         </button>
         <h2 className="popup__title">{props.title}</h2>
         {props.children}
-        <span className="popup__error-submit">{props.textErrorForm}</span>
+        <span className="popup__error-submit">{props.submitError}</span>
         <button 
           type="submit" 
           className={submitPopupButton} 
           aria-label="Подтвердить">
           {props.submitButtonText}
         </button>
-        <p className="popup__link-text">или <span className="popup__link" onClick={props.onLinkClick}>{props.linkText}</span></p>
+        <p className="popup__link-text">или <span className="popup__link" onClick={props.onClickPopup}>{props.linkText}</span></p>
       </form>
     </div>
   )

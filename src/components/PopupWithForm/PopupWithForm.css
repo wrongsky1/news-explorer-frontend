@@ -38,8 +38,8 @@
     top: -30px;
     right: -30px;
     border: none;
-    background: none;
-    transition: all 1s ease-in-out;
+    background-color: transparent;
+    transition: opacity .2s;
     cursor: pointer;
     z-index: 4;
 }
@@ -127,38 +127,36 @@
 }
   
 @media screen and (max-width: 550px) {
-  
     .popup__form {
-      width: 319px;
+        width: 319px;
     }
   
     .popup__title {
-      margin-top: 17px;
-      margin-left: 16px;
-      margin-bottom: 22px;
+        margin-top: 17px;
+        margin-left: 16px;
+        margin-bottom: 22px;
     }
   
     .popup__button {
-      width: 288px;
+        width: 288px;
     }
   
     .popup__close-button {
-      right: 0;
-      top: -42px;
+        right: 0;
+        top: -42px;
     }
 }
   
 @media screen and (max-width: 330px) {
-  
     .popup {
-      align-items: baseline;
-      top: 65px;
+        align-items: baseline;
+        top: 65px;
     }
   
     .popup__close-button {
-      width: 24px;
-      height: 24px;
-      top: -46px;
-      right: 15px;
+        width: 24px;
+        height: 24px;
+        top: -46px;
+        right: 15px;
     }
 }

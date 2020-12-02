@@ -23,12 +23,12 @@
   
 .popup__input {
     color: #000;
+    border: none;
     border-bottom: 1px solid rgba(0, 0, 0, 0.2);
     width: 358px;
     margin-bottom: 3px;
     padding-left: 0;
     padding-bottom: 11px;
-    border: none;
     font-family: 'Inter', 'Arial', sans-serif;
     font-weight: 400;
     font-size: 14px;
@@ -52,13 +52,12 @@
 }
   
 @media screen and (max-width: 550px) {
-  
     .popup__inputs {
-      width: 288px;
-      margin-left: 16px;
+        width: 288px;
+        margin-left: 16px;
     }
   
     .popup__input {
-      width: 288px;
+        width: 288px;
     }
 }
