@@ -4,15 +4,15 @@
     padding-bottom: 80px;
     margin-left: auto;
     margin-right: auto;
-  }
-  
-  .search-form {
+}
+
+.search-form {
     max-width: 608px;
     margin-left: auto;
     margin-right: auto;
-  }
-  
-  .search-form__title {
+}
+
+.search-form__title {
     color: #fff;
     max-width: 608px;
     margin-bottom: 32px;
@@ -21,9 +21,9 @@
     font-weight: 400;
     font-size: 60px;
     line-height: 64px;
-  }
-  
-  .search-form__paragraph {
+}
+
+.search-form__paragraph {
     color: #fff;
     max-width: 545px;
     margin-bottom: 64px;
@@ -32,17 +32,17 @@
     font-weight: 400;
     font-size: 18px;
     line-height: 24px;
-  }
-  
-  .search-form__search-bar {
+}
+
+.search-form__search-bar {
     background: #fff;
     display: flex;
     position: relative;
     max-width: 608px;
     border-radius: 100px;
-  }
-  
-  .search-form__input {
+}
+
+.search-form__input {
     color: #1a1b22;
     outline: none;
     width: 100%;
@@ -53,9 +53,9 @@
     font-weight: 400;
     font-size: 16px;
     line-height: 22px;
-  }
-  
-  .search-form__input-error {
+}
+
+.search-form__input-error {
     color: rgb(255, 6, 6);
     display: none;
     position: absolute;
@@ -65,13 +65,13 @@
     font-size: 16px;
     line-height: 22px;
     text-rendering: optimizeLegibility;
-  }
-  
-  .search-form__input-error_active {
+}
+
+.search-form__input-error_active {
     display: block;
-  }
-  
-  .search-form__submit-button {
+}
+
+.search-form__submit-button {
     color: #fff;
     background: #2f71e5;
     width: 168px;
@@ -86,95 +86,92 @@
     font-weight: 500;
     font-size: 18px;
     line-height: 24px;
-  }
-  
-  .search-form__submit-button:hover {
+}
+
+.search-form__submit-button:hover {
     background: #347eff;
-  }
-  
-  .search-form__submit-button:focus {
+}
+
+.search-form__submit-button:focus {
     background: #2a65cc;
-  }
-  
-  .search-form__submit-button:active {
+}
+
+.search-form__submit-button:active {
     outline: none;
-  }
-  
-  @media screen and (max-width: 800px) {
-  
+}
+
+@media screen and (max-width: 800px) {
     .search {
-      margin-top: 38px;
-      padding-bottom: 48px;
+        margin-top: 38px;
+        padding-bottom: 48px;
     }
-  
+
     .search-form {
-      max-width: 448px;
+        max-width: 448px;
     }
-  
+
     .search-form__title {
-      max-width: 385px;
-      margin-bottom: 16px;
-      font-size: 36px;
-      line-height: 40px;
+        max-width: 385px;
+        margin-bottom: 16px;
+        font-size: 36px;
+        line-height: 40px;
     }
-  
+
     .search-form__paragraph {
-      max-width: 452px;
-      margin-bottom: 48px;
+        max-width: 452px;
+        margin-bottom: 48px;
     }
-  
+
     .search-form__search-bar {
-      max-width: 448px;
+        max-width: 448px;
     }
-  
+
     .search-form__submit-button {
-      width: 160px;
-      height: 56px;
+        width: 160px;
+        height: 56px;
     }
-  }
-  
-  @media screen and (max-width: 550px) {
-  
+}
+
+@media screen and (max-width: 550px) {
     .search {
-      margin-top: 30px;
-      padding-bottom: 32px;
+        margin-top: 30px;
+        padding-bottom: 32px;
     }
-  
+
     .search-form {
-      max-width: 288px;
+        max-width: 288px;
     }
-  
+
     .search-form__title {
-      max-width: 288px;
+        max-width: 288px;
     }
-  
+
     .search-form__paragraph {
-      max-width: 288px;
-      margin-bottom: 122px;
+        max-width: 288px;
+        margin-bottom: 122px;
     }
-  
+
     .search-form__search-bar {
-      display: block;
-      background: none;
-      max-width: 288px;
-      border-radius: 0px;
+        display: block;
+        background: none;
+        max-width: 288px;
+        border-radius: 0px;
     }
-  
+
     .search-form__input {
-      max-width: 270px;
-      margin-bottom: 16px;
-      height: 56px;
-      padding-left: 16px;
+        max-width: 270px;
+        margin-bottom: 16px;
+        height: 56px;
+        padding-left: 16px;
     }
-  
+
     .search-form__submit-button {
-      width: 288px;
+        width: 288px;
     }
-  }
-  
-  @media screen and (max-width: 319px) {
+}
+
+@media screen and (max-width: 319px) {
     .search-form {
-      margin: 0 16px;
+        margin: 0 16px;
     }
-  }
-  
+}
