@@ -1,7 +1,7 @@
 import React from 'react';
 
 import './LoginPopup.css';
-import PopupWithForm from '../PopupWithForm/PopupWithForm.js';
+import PopupWithForm from '../PopupWithForm/PopupWithForm';
 
 function LoginPopup(props) {
 
@@ -18,9 +18,10 @@ function LoginPopup(props) {
       isOpen={props.isOpen}
       onClose={props.onClose}
       linkText="Зарегистрироваться"
-      onLinkClick={props.onLinkClick}
+      onClickPopup={props.onClickPopup}
       isValid={props.isValid}
       onSubmit={handleSubmit}
+      submitError={props.submitError}
     >
       <fieldset className="popup__inputs">
         <span className="popup__input-name">Email</span>
@@ -33,7 +34,7 @@ function LoginPopup(props) {
         minLength="2"
         maxLength="30"
         value={props.values.email || ''}
-        onChange={props.handleChange}
+        onChange={props.handleInputChange}
         pattern="[a-zA-Z]+@[a-zA-Z]+\.[a-zA-Z]+"
         >
         </input>
@@ -49,7 +50,7 @@ function LoginPopup(props) {
         minLength="10"
         maxLength="30"
         value={props.values.password || ''}
-        onChange={props.handleChange}
+        onChange={props.handleInputChange}
         >
         </input>
         <span className="popup__input-error">{props.error.password || ''}</span>
