@@ -1,8 +1,7 @@
 import React from 'react'
 
-import NewsCardList from '../NewsCardList/NewsCardList.js';
-import About from '../About/About.js';
-
+import NewsCardList from '../NewsCardList/NewsCardList';
+import About from '../About/About';
 
 function Main(props) {
   return (
@@ -11,16 +10,16 @@ function Main(props) {
         loggedIn={props.loggedIn}
         handleLoginPopupClick={props.handleLoginPopupClick}
         addToSaveArticles={props.addToSaveArticles}
-        updateMyArticles={props.updateMyArticles}
-        setActiveFlag={props.setActiveFlag}
-        activeFlag={props.activeFlag}
+        checkArticles={props.checkArticles}
+        setIsEditMarker={props.setIsEditMarker}
+        isEditMarker={props.isEditMarker}
         articles={props.articles}
+        saveArticles={props.saveArticles}
         keyword={props.keyword}
-      >
-      </NewsCardList>
+      />
       <About/>
     </main>
   )
-}
+};
 
 export default Main;
