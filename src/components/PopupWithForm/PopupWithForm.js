@@ -31,6 +31,6 @@ function PopupWithForm(props) {
       </form>
     </div>
   )
-}
+};
 
 export default PopupWithForm;

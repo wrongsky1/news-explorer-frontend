@@ -54,12 +54,11 @@
   
 @media screen and (max-width: 550px) {
     .popup__inputs {
-        width: 288px;
-        margin-left: 16px;
+      width: 288px;
+      margin-left: 16px;
     }
   
     .popup__input {
-        width: 288px;
+      width: 288px;
     }
 }
-

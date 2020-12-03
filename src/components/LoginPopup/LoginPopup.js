@@ -57,6 +57,6 @@ function LoginPopup(props) {
       </fieldset>
     </PopupWithForm>
   )
-}
+};
 
 export default LoginPopup;

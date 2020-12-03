@@ -4,7 +4,6 @@ import './NotFound.css';
 import notFoundImage from '../../images/icons/not-found.svg';
 
 function NotFound(props) {
-
   const searchErrorText = `${
     props.searchError
     ? 'Во время запроса произошла ошибка. Возможно, проблема с соединением или сервер недоступен. Подождите немного и попробуйте ещё раз.'
@@ -18,6 +17,6 @@ function NotFound(props) {
       <p className="not-found__subtitle">{searchErrorText}</p>
     </section>
   )
-}
+};
 
 export default NotFound;

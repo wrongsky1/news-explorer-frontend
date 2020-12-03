@@ -1,16 +1,26 @@
 .page {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    min-height: 100vh;
-  }
-  
-  .page__search-form {
-    margin-top: -80px;
-  }
-  
-  @media screen and (max-width: 800px) {
-    .page__search-form {
-      margin-top: 0;
+    position: relative;
+}
+
+.background {
+    max-width: 1440px;
+    margin-left: auto;
+    margin-right: auto;
+    position: relative;
+    background-image: url(../../images/header-background.png);
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: cover;
+}
+
+@media screen and (max-width: 800px) {
+    .background {
+        background-image: url(../../images/header-background-tablet.png);
     }
-  }
+}
+
+@media screen and (max-width: 550px) {
+    .background {
+        background-image: url(../../images/background-mobile.png);
+    }
+}

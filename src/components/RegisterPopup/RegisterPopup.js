@@ -3,13 +3,12 @@ import React from 'react';
 import './RegisterPopup.css';
 import PopupWithForm from '../PopupWithForm/PopupWithForm';
 
-
 function RegisterPopup(props) {
 
-function handleSubmit(e) {
-    e.preventDefault();
-    props.onRegister(props.values.email, props.values.password, props.values.name)
-}
+  function handleSubmit(e) {
+      e.preventDefault();
+      props.onRegister(props.values.email, props.values.password, props.values.name)
+  }
 
   return (
     <PopupWithForm

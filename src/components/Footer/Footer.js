@@ -5,7 +5,7 @@ import './Footer.css';
 import github from '../../images/icons/github.svg';
 import facebook from '../../images/icons/fb.svg';
 
-function Footer(props) {
+function Footer() {
   return (
     <footer className="footer">
       <p className="footer__copyright">&copy; 2020 Supersite, Powered by News API</p>
@@ -13,7 +13,6 @@ function Footer(props) {
         <ul className="footer__list">
           <li className="footer__links">
             <Link
-              // onClick={props.}
               className="footer__link"
               to="/"
             >
@@ -54,6 +53,6 @@ function Footer(props) {
       </div>
     </footer>
   )
-}
+};
 
 export default Footer;

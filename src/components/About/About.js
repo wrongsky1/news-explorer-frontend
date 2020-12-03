@@ -6,7 +6,7 @@ import avatar from '../../images/avatar.jpg';
 function About() {
   return (
     <section className="about">
-      <img className="about__avatar" src={avatar} alt="аватар автора"></img>
+      <img className="about__avatar" src={avatar} alt="Аватар автора"></img>
       <div className="about__container">
         <h2 className="about__title">Об авторе</h2>
         <p className="about__paragraph">Это блок с описанием автора проекта. 
@@ -18,6 +18,6 @@ function About() {
       </div>
     </section>
   )
-}
+};
 
 export default About;
