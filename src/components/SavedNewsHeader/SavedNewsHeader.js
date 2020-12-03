@@ -1,20 +1,12 @@
 import React, { useState } from 'react';
+
 import './SavedNewsHeader.css';
-import { CurrentUserContext } from '../../context/CurrentUserContext.js';
+import { CurrentUserContext } from '../../contexts/CurrentUserContext';
+import { getSavedArticlesText, getKeywordsText } from '../../utils/SavedArticlesText';
 
 function SavedNewsHeader(props) {
-
   const currentUser = React.useContext(CurrentUserContext);
   const [keywords, setKeywords] = useState([]);
-
-  function getSavedArticlesText(number) {
-    if (number >= 5 || number === 0)
-      return 'сохраненных статей';
-    if (number > 1 && number < 5)
-      return 'сохраненные статьи';
-    if (number === 1)
-      return 'сохраненная статья';
-  }
 
   React.useEffect(() => {
     const keywordMap = props.myArticles.map(i => i = i.keyword)
@@ -22,25 +14,9 @@ function SavedNewsHeader(props) {
         first[present] = (first[present] || 0) + 1;
         return first;
       }, {});
-
       const sortedKeywords = Object.keys(keywordMap).sort((a, b) => keywordMap[b] - keywordMap[a]);
       setKeywords(sortedKeywords);
   }, [props.myArticles]);
-
-
-  function getKeywordsText(number) {
-    let text = '-и другим';
-    if (number.toString().endsWith('1') && !number.toString().endsWith('11')) {
-      text = '-му другому';
-    } else if (number.toString().endsWith('2') && !number.toString().endsWith('12')) {
-      text = '-м другим';
-    } else if (number.toString().endsWith('3') && !number.toString().endsWith('13')) {
-      text = '-м другим';
-    } else if (number.toString().endsWith('4') && !number.toString().endsWith('14')) {
-      text = '-м другим';
-    }
-    return text;
-}
 
   return (
     <section className="saved-news-header">
@@ -54,10 +30,8 @@ function SavedNewsHeader(props) {
           {
             keywords.map((keyword, i) => {
               return i < keywords.length - 1
-                ?
-                <span className="saved-news-header__keyword" key={i}>{keyword},&nbsp;</span>
-                :
-                <span className="saved-news-header__keyword" key={i}>{keyword}</span>
+                ? <span className="saved-news-header__keyword" key={i}>{keyword},&nbsp;</span>
+                : <span className="saved-news-header__keyword" key={i}>{keyword}</span>
             })
           }
           </p>

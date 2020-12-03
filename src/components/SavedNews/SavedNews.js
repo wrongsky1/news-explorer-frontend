@@ -1,11 +1,10 @@
 import React from 'react';
 
 import './SavedNews.css';
-import NewsCard from '../NewsCard/NewsCard.js';
-import SavedNewsHeader from '../SavedNewsHeader/SavedNewsHeader.js';
+import NewsCard from '../NewsCard/NewsCard';
+import SavedNewsHeader from '../SavedNewsHeader/SavedNewsHeader';
 
 function SavedNews(props) {
-
   const savedNewsBlock = `${
     props.lengthMyArticles > 0
     ? 'saved-news__list'
@@ -32,15 +31,15 @@ function SavedNews(props) {
               source={article.source.name || article.source}
               keyword={article.keyword || props.keyword}
               key={key}
-              updateMyArticles={props.updateMyArticles}
+              checkArticles={props.checkArticles}
               loggedIn={props.loggedIn}
             />
           ))
-          }
+        }
         </article>
       </div>
     </section>
   )
-}
+};
 
 export default SavedNews;

@@ -1,15 +1,15 @@
 .saved-news-header {
     max-width: 1440px;
     margin: 0 auto;
-  }
-  
-  .saved-news-header__block {
+}
+
+.saved-news-header__block {
     margin-top: 40px;
     margin-left: 104px;
     margin-bottom: 56px;
-  }
-  
-  .saved-news-header__subtitle {
+}
+
+.saved-news-header__subtitle {
     color: rgba(26, 27, 34, 0.5);
     max-width: 712px;
     margin: 0 0 28px 0;
@@ -17,9 +17,9 @@
     font-weight: 400;
     font-size: 18px;
     line-height: 24px;
-  }
-  
-  .saved-news-header__title {
+}
+
+.saved-news-header__title {
     color: #1a1b22;
     max-width: 530px;
     margin: 0 0 30px 0;
@@ -27,9 +27,9 @@
     font-weight: 400;
     font-size: 40px;
     line-height: 46px;
-  }
-  
-  .saved-news-header__keyword-list {
+}
+
+.saved-news-header__keyword-list {
     color: #1a1b22;
     max-width: 712px;
     margin: 0;
@@ -37,57 +37,54 @@
     font-weight: 400;
     font-size: 18px;
     line-height: 24px;
-  }
-  
-  .saved-news-header__keyword {
+}
+
+.saved-news-header__keyword {
     font-weight: 900;
-  }
-  
-  @media screen and (max-width: 800px) {
-  
+}
+
+@media screen and (max-width: 800px) {
     .saved-news-header__block {
-      margin-top: 24px;
-      margin-left: 40px;
-      margin-bottom: 32px;
+        margin-top: 24px;
+        margin-left: 40px;
+        margin-bottom: 32px;
     }
-  
+
     .saved-news-header__subtitle {
-      font-size: 14px;
-      margin-bottom: 16px;
+        font-size: 14px;
+        margin-bottom: 16px;
     }
-  
+
     .saved-news-header__title {
-      max-width: 336px;
-      margin-bottom: 16px;
-      font-size: 30px;
-      line-height: 34px;
+        max-width: 336px;
+        margin-bottom: 16px;
+        font-size: 30px;
+        line-height: 34px;
     }
-  
+
     .saved-news-header__keyword-list {
-      font-size: 14px;
+        font-size: 14px;
     }
-  }
-  
-  @media screen and (max-width: 550px) {
-  
+}
+
+@media screen and (max-width: 550px) {
     .saved-news-header__block {
-      margin-top: 8px;
-      margin-left: 16px;
+        margin-top: 8px;
+        margin-left: 16px;
     }
-  
+
     .saved-news-header__subtitle {
-      max-width: 288px;
-      font-size: 12px;
-      line-height: 24px;
+        max-width: 288px;
+        font-size: 12px;
+        line-height: 24px;
     }
-  
+
     .saved-news-header__title {
-      max-width: 288px;
+        max-width: 288px;
     }
-  
+
     .saved-news-header__keyword-list {
-      max-width: 288px;
-      font-size: 18px;
+        max-width: 288px;
+        font-size: 18px;
     }
-  }
-  
+}
