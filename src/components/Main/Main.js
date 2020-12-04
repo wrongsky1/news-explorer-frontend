@@ -1,23 +1,25 @@
-import React from 'react';
+import React from 'react'
 
-import SearchForm from '../SearchForm/SearchForm';
-import Preloader from '../Preloader/Preloader';
 import NewsCardList from '../NewsCardList/NewsCardList';
 import About from '../About/About';
 
 function Main(props) {
-    return (
-        <>
-            <SearchForm />
-            <Preloader />
-            <NewsCardList
-                activePage={props.activePage}
-                searchNews={props.searchNews}
-                loggedIn={props.loggedIn}
-            />
-            <About />
-        </>
-    )
-}
+  return (
+    <main className="content">
+      <NewsCardList
+        loggedIn={props.loggedIn}
+        handleLoginPopupClick={props.handleLoginPopupClick}
+        addToSaveArticles={props.addToSaveArticles}
+        checkArticles={props.checkArticles}
+        setIsEditMarker={props.setIsEditMarker}
+        isEditMarker={props.isEditMarker}
+        articles={props.articles}
+        saveArticles={props.saveArticles}
+        keyword={props.keyword}
+      />
+      <About/>
+    </main>
+  )
+};
 
 export default Main;

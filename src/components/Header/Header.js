@@ -1,39 +1,75 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
+import { useLocation, Link } from 'react-router-dom';
 
-import './Header.css';
+import './Header.css'
 import Navigation from '../Navigation/Navigation';
 
 function Header(props) {
-    return (
-        <header className={
-            props.activePage === "main"
-                ? props.mobileMenuOpened ? "header header_bg_dark" : "header"
-                : "header header_bg_white"}>
-            <Link className={props.activePage === "main" ? "header__logo" : "header__logo header__logo_color_dark"} to="/" onClick={props.setMainPageActive}>
-                NewsExplorer
-            </Link>
-            <button className={
-                props.activePage === "main"
-                    ? props.mobileMenuOpened ? "header__menu-button header__menu-button_opened_white" : "header__menu-button"
-                    : props.mobileMenuOpened ? "header__menu-button header__menu-button_color_dark header__menu-button_opened_dark" : "header__menu-button header__menu-button_color_dark"
-            }
-                    type="button"
-                    aria-label="Кнопка меню"
-                    onClick={props.toggleMobileMenu}>
-            </button>
-            <Navigation
-                activePage={props.activePage}
-                setMainPageActive={props.setMainPageActive}
-                setSavedNewsPageActive={props.setSavedNewsPageActive}
-                loggedIn={props.loggedIn}
-                mobileMenuOpened={props.mobileMenuOpened}
-                handleLoginPopupClick={props.handleLoginPopupClick}
-                handleLogout={props.handleLogout}
-                currentUser={props.currentUser}
-            />
-        </header>
-    )
+  const { pathname } = useLocation();
+
+  const mobileMenuActive = `${
+    props.isEditOpenMobile
+      ? 'header_mobile'
+      : ''
+  }`;
+
+  const buttonMobileMenu = `${
+    props.isEditOpenMobile
+      ? 'header__button-mobile_close_white'
+      : pathname === '/saved-news'
+        ? 'header__button-mobile_black'
+        : 'header__button-mobile'
+  }`;
+
+  const buttonMobileMenuHidden = `${
+    props.isLoginPopupOpen || props.isRegisterPopupOpen
+      ? 'header__button-mobile_hidden'
+      : ''
+  }`;
+
+  const headerLogoColor = `${
+    props.isEditOpenMobile
+      ? pathname === '/saved-news' 
+        ? 'header__logo_white' 
+        : 'header__logo_white'
+      : pathname === '/saved-news'
+        ? 'header__logo_dark'
+        : 'header__logo_white'
+  }`;
+
+  const boxShadow = `${
+    pathname === '/saved-news'
+      ? 'header_saved'
+      : ''
+  }`;
+
+  const stickyHeader = `${
+    pathname === '/saved-news'
+      ? 'header_mobile_sticking'
+      : ''
+  }`;
+
+  return (
+    <header className={`header ${mobileMenuActive} ${boxShadow} ${stickyHeader}`}>
+      <Link
+        to="/"
+        className={`header__logo ${headerLogoColor}`}
+      >
+        NewsExplorer
+      </Link>
+      <button
+        type="button"
+        onClick={props.toggleMobileMenu}
+        className={`header__button-mobile ${buttonMobileMenu} ${buttonMobileMenuHidden}`}
+      />
+      <Navigation
+        handleLoginPopupClick={props.handleLoginPopupClick}
+        isEditOpenMobile={props.isEditOpenMobile}
+        loggedIn={props.loggedIn}
+        handleLogout={props.handleLogout}
+      />
+    </header>
+  )
 }
 
 export default Header;

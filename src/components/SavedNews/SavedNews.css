@@ -1,1 +1,38 @@
-/* Тут будут стили для сообщения если нет сохраненных статей. */
+.saved-news {
+    max-width: 1440px;
+    margin: 0 auto;
+}
+
+.saved-news__list {
+    background: #f5f6f7;
+    max-width: 1440px;
+    margin: 0 auto;
+    padding-top: 62px;
+    padding-bottom: 62px;
+}
+
+@media screen and (max-width: 1350px) {
+    .saved-news__box {
+        max-width: 688px;
+        grid-template-columns: repeat(auto-fit, 224px);
+        grid-gap: 8px;
+    }
+}
+
+@media screen and (max-width: 800px) {
+    .saved-news__box {
+        margin: 0 40px;
+    }
+
+    .saved-news__list {
+        padding-top: 32px;
+        padding-bottom: 32px;
+    }
+}
+
+@media screen and (max-width: 550px) {
+    .saved-news__list {
+        padding-top: 24px;
+        padding-bottom: 24px;
+    }
+}

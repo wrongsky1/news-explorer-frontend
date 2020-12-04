@@ -1,36 +1,68 @@
-import React from 'react';
+import React, { useState } from 'react'
+import { useLocation } from 'react-router-dom';
 
 import './NewsCard.css';
+import { newDate } from '../../utils/SavedArticlesText';
 
 function NewsCard(props) {
-    return (
-        <div className="news-card">
-            <a className="news-card__link" href={props.card.source.url} target="_blank" rel="noopener noreferrer">
-                <img className="news-card__image" src={props.card.urlToImage} alt={props.card.title} />
-                <div className="news-card__container">
-                    <p className="news-card__date">{props.card.publishedAt}</p>
-                    <div className="news-card__text-wrapper">
-                        <p className="news-card__title">{props.card.title}</p>
-                        <p className="news-card__description">{props.card.description}</p>
-                    </div>
-                    <p className="news-card__source">{props.card.source.name}</p>
-                </div>
-            </a>
-            {props.activePage === "main"
-                ?
-                <button className={props.loggedIn
-                    ? "news-card__save-button" : "news-card__save-button news-card__save-button_not-logged"}
-                        type="button"
-                        aria-label="Сохранить карточку"
-                />
-                :
-                <>
-                <button className="news-card__delete-button" type="button" aria-label="Удалить из сохранённых" />
-                <p className="news-card__keyword">{props.card.keyword}</p>
-                </>
-            }
-        </div>
-    )
+  const { pathname } = useLocation();
+  const { saveArticles, loggedIn } = props;
+  const [isEditMarker, setIsEditMarker] = useState(false); 
+  const keyword = `${ pathname === '/saved-news'
+    ? 'news-card__keyword news-card__keyword_active' 
+    : 'news-card__keyword'
+  }`;
+
+  React.useEffect(() => {
+    if (loggedIn === true) {
+      if (saveArticles) {
+        setIsEditMarker(saveArticles.find((i) => i.title === props.title) !== undefined);
+      }
+    }
+  }, [saveArticles, props.title, isEditMarker, loggedIn])
+
+  function clickDelOrAddButton() {
+    props.checkArticles(props.article, props.keyword, props.myArticle);
+  }
+
+  const delOrAddButton = `${ 
+    pathname === '/saved-news' 
+      ? 'news-card__button-delete' 
+      : `${
+        loggedIn && isEditMarker 
+          ? 'news-card__button news-card__button_saved' 
+          : 'news-card__button'
+        }`
+  }`;
+
+  return (
+    <article className="news-card">
+      <p className={keyword}>{props.keyword}</p>
+      { loggedIn 
+        ? 
+        <button onClick={clickDelOrAddButton} className={delOrAddButton}/>
+        :
+        <button 
+          onClick={props.handleLoginPopupClick} 
+          className="news-card__button news-card__button_disabled"
+        />  
+      }
+      <img 
+        className="news-card__image" 
+        src={props.image 
+          ? props.image 
+          : "https://i.pinimg.com/originals/8a/eb/d8/8aebd875fbddd22bf3971c3a7159bdc7.png"
+        } 
+        alt={props.title}
+      />
+      <a className="news-card__link" href={props.link} target="_blank" rel="noreferrer">
+      <p className="news-card__date">{newDate(props.date)}</p>
+      <h2 className="news-card__title">{props.title}</h2>
+      <p className="news-card__text">{props.text || 'Описание новости отсутствует.'}</p>
+      <p className="news-card__source">{props.source || props.source.name}</p>
+      </a>
+    </article>
+  )
 }
 
 export default NewsCard;

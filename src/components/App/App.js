@@ -1,197 +1,380 @@
-import React from 'react';
-import { Switch, Route, useHistory } from 'react-router-dom';
+import React, { useState } from 'react';
+import { Route, Switch, useHistory, Redirect } from 'react-router-dom';
 
 import './App.css';
 import Header from '../Header/Header';
 import Main from '../Main/Main';
+import SearchForm from '../SearchForm/SearchForm'; 
+import Preloader from '../Preloader/Preloader'; 
+import NotFoud from '../NotFound/NotFound';
 import Footer from '../Footer/Footer';
 import SavedNews from '../SavedNews/SavedNews';
 import LoginPopup from '../LoginPopup/LoginPopup';
 import RegisterPopup from '../RegisterPopup/RegisterPopup';
 import SuccessfulPopup from '../SuccessfulPopup/SuccessfulPopup';
 import { CurrentUserContext } from '../../contexts/CurrentUserContext';
-import { searchExample, newsExample } from '../../utils/SomeArticles';
-
+import { searchNews } from '../../utils/NewsApi';
+import { register, authorize, getInfo, getSavedNews, saveArticle, deleteArticle } from '../../utils/MainApi';
+import ProtectedRoute from '../../ProtectedRoute/ProtectedRoute';
 
 function App() {
-    const history = useHistory();
 
-    const [activePage, setActivePage] = React.useState('main');
-    const [loggedIn, setLoggedIn] = React.useState(false);
-    const [mobileMenuOpened, setMobileMenuOpened] = React.useState(false);
-    
-    // стейт переменные для открытия попапов
+  const history = useHistory();
+  const [loggedIn, setLoggedIn] = React.useState(false);
+  const [currentUser, setCurrentUser] = useState({});
+  const [isEditOpenMobile, setEditOpenMobile] = useState(false);
+  const [isLoginPopupOpen, setIsLoginPopupOpen] = useState(false);
+  const [isRegisterPopupOpen, setIsRegisterPopupOpen] = useState(false);
+  const [isSuccessfulPopupOpen, setIsSuccessfulPopupOpen] = useState(false);
+  const [values, setValues] = useState({});
+  const [error, setError] = useState({});
+  const [isValid, setIsValid] = useState(false);
+  const [submitError, setSubmitError] = useState('');
+  const [articles, setArticles] = useState([]);
+  const [myArticles, setMyArticles] = useState([]);
+  const [lengthMyArticles, setLengthMyArticles] = useState(0);
+  const [searchError, setSearchError] = useState(false);
+  const [isEditMarker, setIsEditMarker] = useState(false);
+  const [keyword, setKeyword] = useState('');
+  const [isLoading, setIsLoading] = useState(false);
+  const [isEditNotFound, setIsEditNotFound] = useState(false);
+  const [isEditPreloader, setIsEditPreloader] = useState(false);
+  
+  function handleInputChange(e) {
+    const name = e.target.name;
+    const value = e.target.value;
+    setValues({ ...values, [name]: value });
+    setError({ ...error, [name]: e.target.validationMessage });
+    setIsValid(e.target.closest('form').checkValidity());
+  };
+ 
+  function resetForm() {
+    setValues({});  
+    setError({});
+    setIsValid(false);
+  };
+  
+  function toggleMobileMenu() {
+    isEditOpenMobile ? setEditOpenMobile(false) : setEditOpenMobile(true);
+  };
 
-    const [isLoginPopupOpen, setIsLoginPopupOpen] = React.useState(false);
-    const [isRegisterPopupOpen, setIsRegisterPopupOpen] = React.useState(false);
-    const [isSuccessfulPopupOpen, setIsSuccessfulPopupOpen] = React.useState(false);
+  function handleLoginPopupClick() {
+    setIsSuccessfulPopupOpen(false)
+    setIsLoginPopupOpen(true);
+    setEditOpenMobile(false);
+  };
 
-    const [searchNews, setSearchNews] = React.useState(searchExample);
-    const [savedNews, setSavedNews] = React.useState(newsExample);
-    const [currentUser, setCurrentUser] = React.useState({name: 'Грета'});
+  function handleRegisterPopupClick() {
+    setIsRegisterPopupOpen(true);
+  };
 
-    // стейт переменные для валидации формы
+  function closeAllPopups() {
+    setIsLoginPopupOpen(false);
+    setIsRegisterPopupOpen(false);
+    setIsSuccessfulPopupOpen(false);
+    resetForm();
+  };
 
-    const [values, setValues] = React.useState({});
-    const [errors, setErrors] = React.useState({});
-    const [isValid, setIsValid] = React.useState(false);
-    const [submitError, setSubmitError] = React.useState('');
-
-    // функция отображения ошибок при некорректных данных
-
-    function handleInputChange(e) {
-        const name = e.target.name;
-        const value = e.target.value;
-        setValues({ ...values, [name]: value });
-        setErrors({ ...errors, [name]: e.target.validationMessage });
-        setIsValid(e.target.closest('form').checkValidity());
-      };
-
-    // функция сброса ошибок 
-
-    function resetForm() {
-        setValues({});
-        setErrors({});
-        setIsValid(false);
-        setSubmitError('');
+  function popupChange() {
+    if (isLoginPopupOpen) {
+      closeAllPopups();
+      handleRegisterPopupClick();
+    } else {
+      closeAllPopups();
+      handleLoginPopupClick();
     }
+  };
 
-    // активная страница
-    function setMainPageActive() {
-        setActivePage('main');
+  function handleEscClose(evt) {
+    if (evt.key === 'Escape') {
+        closeAllPopups();
     }
+  };
 
-    function setSavedNewsPageActive() {
-        setActivePage('saved-news');
+  function handleOverlayClose(evt) {
+    if (evt.target.classList.contains('popup_active')) {
+        closeAllPopups();
     }
+  };
 
-    // выход из лк
-
-    function handleLogout() {
-        setMainPageActive();
-        setLoggedIn(false);
-        history.push('/');
+  React.useEffect(() => {
+    window.addEventListener('mousedown', handleOverlayClose);
+    window.addEventListener('keydown', handleEscClose);
+    return () => {
+      window.removeEventListener('mousedown', handleOverlayClose);
+      window.removeEventListener('keydown', handleEscClose);
     }
+  });
 
-    function toggleMobileMenu() {
-        setMobileMenuOpened(!mobileMenuOpened);
+  function checkToken() { 
+    const jwt = localStorage.getItem('jwt');
+    if (jwt) {
+      setLoggedIn(true)
+      history.push('/')
+      getMySaveArticles();
+      setCurrentUser(JSON.parse(localStorage.getItem('user')));
+      setArticles(JSON.parse(localStorage.getItem('articles')));
     }
+  };
 
-    // логика работы попапов
+  React.useEffect(() => {
+    checkToken();
+  },[loggedIn]);
 
-    function handleLoginPopupClick() {
-        setIsLoginPopupOpen(true);
-    }
-      
-    function handleRegisterPopupClick() {
-        setIsRegisterPopupOpen(true);
-    }
+  React.useEffect(() => {
+    setKeyword(localStorage.getItem('keyword'));
+  }, [keyword]);
 
-    function handleSuccessfulPopupClick() {
-        setIsSuccessfulPopupOpen(true);
-    }
+  
+  function searchNewsClick(keyword) {
+    setIsEditPreloader(true)
+    setArticles([]);
+    localStorage.removeItem('articles');
+    localStorage.removeItem('keyword');
+    setIsEditNotFound(false);
+    setSearchError(false);
 
-    function closeAllPopups() {
-        setIsLoginPopupOpen(false);
-        setIsRegisterPopupOpen(false);
-        setIsSuccessfulPopupOpen(false);
-        resetForm();
-    }
-    
-    function handleEscClose(evt) {
-        if (evt.key === 'Escape') {
-            closeAllPopups();
+    searchNews(keyword)
+      .then((data) => {
+        localStorage.setItem('articles', JSON.stringify(data.articles));
+        localStorage.setItem('keyword', keyword);
+        setArticles(data.articles);
+        setKeyword(keyword);
+        // console.log(data.articles);
+        if (data.articles.length === 0) {
+          setIsEditNotFound(true)
         }
-    }
-      
-    function handleOverlayClose(evt) {
-        if (evt.target.classList.contains('popup')) {
-            closeAllPopups();
-        }
-    }
-      
-    React.useEffect(() => {
-        window.addEventListener('keydown', handleEscClose);
-        window.addEventListener('mousedown', handleOverlayClose);
-      
-        return () => {
-            window.removeEventListener('keydown', handleEscClose);
-            window.removeEventListener('mousedown', handleOverlayClose);
-        };
-    })
+      })
+      .catch((err) => {
+        console.log(err.status);
+        setSearchError(true);
+        setIsEditNotFound(true);
+      })
+      .finally(() => setIsEditPreloader(false));
+  };
 
-    function popupChange() {
-        if (isLoginPopupOpen) {
-            closeAllPopups();
-            handleRegisterPopupClick();
+  function getMySaveArticles() {
+    getSavedNews()
+      .then((res) => {
+        if (res) {
+          setMyArticles(res);
+          setLengthMyArticles(res.length);
+          setKeyword(res.keyword)
         } else {
-            closeAllPopups();
-            handleLoginPopupClick();
+          setMyArticles([]);
         }
+      })
+      .catch((err) => {
+        console.log(err.message);
+      });
+  };
+
+  function addToSaveArticles(article, keyword) {
+    if (loggedIn) {
+      saveArticle(article, keyword)
+        .then((data) => {
+          if (data) {
+            getMySaveArticles();
+          }
+        })
+        .catch((err) => {
+          console.log(err.message);
+        });
     }
+  };
+
+  function deleteMyArticle(article) {
+    deleteArticle(article)
+      .then((data) => {
+        const myArticleArray = myArticles.filter((i) => (i._id !== article._id));
+        setMyArticles(myArticleArray);
+        setLengthMyArticles(myArticleArray.length);
+      })
+      .catch((err) => {
+        console.log(err.message);
+      });
+  };
+
+  function checkArticles(article, keyword, myArticle) {
+    // console.log(article);
+    const taggedArticle = myArticles.find((i) => {
+      if (myArticle) {
+        return i.title === myArticle.title && i.text === myArticle.text;
+      }
+      if (article) {
+        return i.title === article.title && i.text === article.description;
+      }
+    });
+
+    if (taggedArticle) {
+      deleteMyArticle(taggedArticle);
+    } else {
+      addToSaveArticles(article, keyword);
+    }
+  };
+
+  function regUser(email, password, name) {
+    setIsLoading(true);
+    register(email, password, name)
+      .then((res) => {
+        if (res) {
+          closeAllPopups();
+          setIsSuccessfulPopupOpen(true);
+          history.push('/');
+        }
+      })
+      .catch((err) => {
+        setSubmitError(err);
+        console.log(err);
+      })
+      .finally(() => {
+        setIsLoading(false);
+      });
+  };
+
+  function logUser(email, password) {
+    setIsLoading(true);
+    authorize(email, password)
+    .then((res) => {
+      localStorage.setItem('jwt', res.token);
+
+      if (res) {
+        getInfo(res.token)
+          .then((data) => {
+            localStorage.setItem('user', JSON.stringify(data));
+            setCurrentUser(data);
+            setLoggedIn(true)
+            closeAllPopups();
+            history.push('/');
+          })
+          .catch((err) => {
+            console.log(err);
+          })
+      }
+    })
+    .catch((err) => {
+      setError(false)
+      console.log(err);
+    })
+    .finally(() => {
+      setIsLoading(false);
+    });
+  };
+
+  function handleLogout() {
+    localStorage.removeItem('jwt');
+    localStorage.removeItem('user');
+    setArticles([]);
+    setLoggedIn(false);
+    history.push('/');
+  };
 
   return (
     <div className="page">
-        <CurrentUserContext.Provider value={currentUser}>
+      <CurrentUserContext.Provider value={currentUser}>
+      <Switch>
+        <Route exact path="/">
+          <div className="background">
             <Header
-                activePage={activePage}
-                setMainPageActive={setMainPageActive}
-                setSavedNewsPageActive={setSavedNewsPageActive}
-                loggedIn={loggedIn}
-                mobileMenuOpened={mobileMenuOpened}
-                toggleMobileMenu={toggleMobileMenu}
-                handleLogout={handleLogout}
-                handleLoginPopupClick={handleLoginPopupClick}
-                currentUser={currentUser}
+              isEditOpenMobile={isEditOpenMobile}
+              toggleMobileMenu={toggleMobileMenu}
+              isLoginPopupOpen={isLoginPopupOpen}
+              handleLoginPopupClick={handleLoginPopupClick}
+              isRegisterPopupOpen={isRegisterPopupOpen}
+              handleRegisterPopupClick={handleRegisterPopupClick}
+              handleLogout={handleLogout}
+              loggedIn={loggedIn}
             />
-            <Switch>
-                <Route path="/" exact>
-                    <Main
-                        activePage={activePage}
-                        loggedIn={loggedIn}
-                        searchNews={searchNews}
-                    />
-                </Route>
-                <Route path="/saved-news">
-                    <SavedNews 
-                        loggedIn={loggedIn}
-                        setSavedNewsPageActive={setSavedNewsPageActive} 
-                        savedNews={savedNews} 
-                    />
-                </Route>
-            </Switch>
-            <Footer setMainPageActive={setMainPageActive} />
+            <SearchForm
+              handleSearchNews={searchNewsClick}
+            />
+          </div>
+          <Preloader
+            isOpen={isEditPreloader}
+          />
+          <NotFoud
+            isOpen={isEditNotFound}
+            searchError={searchError}
+          />
+          <Main
+            loggedIn={loggedIn}
+            handleRegisterPopupClick={handleRegisterPopupClick}
+            handleLoginPopupClick={handleLoginPopupClick}
+            addToSaveArticles={addToSaveArticles}
+            keyword={keyword}
+            articles={articles}
+            saveArticles={myArticles}
+            checkArticles={checkArticles}
+            isEditMarker={isEditMarker}
+            setIsEditMarker={setIsEditMarker} 
+          />
+        </Route>
+        <Route path="/saved-news">
+          <Header
+            isEditOpenMobile={isEditOpenMobile}
+            toggleMobileMenu={toggleMobileMenu}
+            isLoginPopupOpen={isLoginPopupOpen}
+            handleLoginPopupClick={handleLoginPopupClick}
+            isRegisterPopupOpen={isRegisterPopupOpen}
+            handleRegisterPopupClick={handleRegisterPopupClick}
+            handleLogout={handleLogout}
+            currentUser={currentUser}       
+            loggedIn={loggedIn}
+          />
+          <ProtectedRoute path="/saved-news"
+            component={SavedNews}
+            handleRegisterPopupClick={handleRegisterPopupClick}
+            keyword={keyword}
+            myArticles={myArticles}
+            lengthMyArticles={lengthMyArticles}
+            checkArticles={checkArticles}
+            deleteMyArticle={deleteMyArticle}
+            loggedIn={loggedIn}
+          />
+        </Route>
+        <Route>
+          <Redirect to="/"/>
+        </Route>
+      </Switch>
+      <Footer/>
 
-            <LoginPopup 
-                isLoginPopupOpen={isLoginPopupOpen} 
-                onClose={closeAllPopups} 
-                onLinkClick={popupChange} 
-                submitError={submitError}
-                values={values}
-                errors={errors}
-                isValid={isValid}
-                handleChange={handleInputChange}
-            />
-
-            <RegisterPopup 
-                isRegisterPopupOpen={isRegisterPopupOpen} 
-                onClose={closeAllPopups} 
-                onLinkClick={popupChange} 
-                submitError={submitError}
-                values={values}
-                errors={errors}
-                isValid={isValid}
-                handleChange={handleInputChange}
-            />
-
-            <SuccessfulPopup
-                isOpen={isSuccessfulPopupOpen}
-                onClose={closeAllPopups}
-                onLinkClick={popupChange}
-            />
-        </CurrentUserContext.Provider>
+      <section className="popups">
+        <LoginPopup
+          onLogin={logUser}
+          values={values}
+          error={error}
+          isValid={isValid}
+          handleInputChange={handleInputChange}
+          isOpen={isLoginPopupOpen}
+          onClickPopup={popupChange}
+          onClose={closeAllPopups}
+          submitError={submitError}
+          isLoading={isLoading}
+        />
+        
+        <RegisterPopup
+          onRegister={regUser}
+          values={values}
+          error={error}
+          isValid={isValid}
+          handleInputChange={handleInputChange}
+          isOpen={isRegisterPopupOpen}
+          onClickPopup={popupChange}
+          onClose={closeAllPopups}
+          submitError={submitError} 
+          isLoading={isLoading}
+        />
+        
+        <SuccessfulPopup
+          isOpen={isSuccessfulPopupOpen}
+          isLoginPopupOpen={isLoginPopupOpen}
+          handleLoginPopupClick={handleLoginPopupClick}
+          onClose={closeAllPopups}
+        />
+      </section>
+      </CurrentUserContext.Provider>
     </div>
   );
-}
+};
 
 export default App;

@@ -1,48 +1,113 @@
-import React from 'react';
-import { Link } from 'react-router-dom';
+import React from 'react'
+import { useLocation, NavLink } from 'react-router-dom';
 
-import './Navigation.css';
+import './Navigation.css'
 import logoutIcon from '../../images/buttons/logout.svg';
 import logoutIconDark from '../../images/buttons/logout-dark.svg';
 import { CurrentUserContext } from '../../contexts/CurrentUserContext';
 
 function Navigation(props) {
-    const currentUser = React.useContext(CurrentUserContext);
+  const { pathname } = useLocation();
+  const currentUser = React.useContext(CurrentUserContext);
 
-    return (
-        <nav className={
-            props.activePage === "main"
-                ? props.mobileMenuOpened ? "navigation navigation_opened" : "navigation"
-                : props.mobileMenuOpened ? "navigation navigation_bg_white navigation_opened" : "navigation"
-        }>
-            <Link className={props.activePage === "main"
-                ? "navigation__link navigation__underline navigation__underline_color_white"
-                : "navigation__link navigation__link_color_dark"}
-                  to="/"
-                  onClick={props.setMainPageActive}>
-                Главная
-            </Link>
-            {props.loggedIn &&
-            <Link className={props.activePage === "main"
-                ? "navigation__link navigation__link_color_gray"
-                : "navigation__link navigation__link_color_dark navigation__underline navigation__underline_color_dark"}
-                  to="/saved-news"
-                  onClick={props.setSavedNewsPageActive}>
-                Сохранённые статьи
-            </Link>}
-            {props.loggedIn
-                ? <button className={props.activePage === 'main'
-                    ? "navigation__logout-button"
-                    : "navigation__logout-button navigation__logout-button_color_dark"}
-                          type="button"
-                          onClick={props.handleLogout}
-                >
-                {currentUser.name}
-                    <img className="navigation__logout-icon" src={props.activePage === "main" ? logoutIcon : logoutIconDark} alt="Иконка для входа" />
-                </button>
-                : <button className="navigation__auth-button" type="button" onClick={props.handleLoginPopupClick}>Авторизоваться</button>}
-        </nav>
-    )
+  const loginText = `${
+    props.loggedIn
+    ? `${currentUser.name}`
+    : `Авторизоваться`
+  }`;
+
+  const openMobileMenu = `${
+    props.isEditOpenMobile
+      ? 'navigation_mobile'
+      : ''
+  }`;
+
+  const colorLinkOpenMobile = `${
+    props.isEditOpenMobile
+      ? 'navigation__link_white'
+      : ''
+  }`;
+
+  const buttonWhite = `${
+    pathname === '/'
+      ? 'navigation__button'
+      : 'navigation__button_hidden'
+  }`;
+
+  const buttonDark = `${
+    pathname === '/saved-news'
+      ? 'navigation__button-dark'
+      : 'navigation__button_hidden'
+  }`;
+
+  const colorLinkNavigation = `${
+    pathname === '/saved-news'
+      ? 'navigation__link_dark'
+      : 'navigation__link_white'
+  }`;
+
+  const navigationLinkActive = `${
+    (props.isEditOpenMobile === false)
+    ?
+      pathname === '/saved-news'
+        ? 'navigation__link_active_dark'
+        : 'navigation__link_active'
+    : ''
+  }`;
+
+  return (
+    <nav className={`navigation ${openMobileMenu}`}>
+      <ul className="navigation__links">
+
+        <li className="navigation__links-list">
+          <NavLink
+            activeClassName={navigationLinkActive}
+            className={`navigation__link ${colorLinkNavigation} ${colorLinkOpenMobile}`}
+            exact to="/"
+          >
+            Главная
+          </NavLink>
+        </li>
+
+        <li className="navigation__links-list">
+          <NavLink
+            activeClassName={navigationLinkActive}
+            className={`${props.loggedIn
+              ? `navigation__link ${colorLinkNavigation} ${colorLinkOpenMobile}`
+              : 'navigation__link_disable'}`}
+            to="/saved-news"
+          >
+            Сохраненные статьи
+          </NavLink>
+        </li>
+
+      </ul>
+
+      <button
+        onClick={props.loggedIn
+          ? props.handleLogout
+          : props.handleLoginPopupClick}
+        className={buttonWhite}
+      >
+        {loginText}
+        {props.loggedIn && <img className="navigation__image-exit" src={logoutIcon} alt="Выход из личного кабинета"/>}
+      </button>
+
+      <button
+        onClick={props.handleLogout}
+        className={buttonDark}
+      >
+        {loginText}
+        <img className="navigation__image-exit" 
+          src={props.isEditOpenMobile 
+            ? logoutIcon 
+            : logoutIconDark} 
+          alt="Выход из личного кабинета"
+        />
+      </button>
+
+    </nav>
+  )
 }
 
 export default Navigation;

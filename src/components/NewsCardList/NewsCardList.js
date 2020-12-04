@@ -1,58 +1,64 @@
-import React from 'react';
+import React, { useState } from 'react';
 
 import './NewsCardList.css';
-import notFoundIcon from '../../images/icons/not-found.svg';
 import NewsCard from '../NewsCard/NewsCard';
 
 function NewsCardList(props) {
-    return (
-        <>
-            {
-                props.activePage === "main"
-                    ?
-                    <section className="news-card-list">
-                        {props.searchNews.length > 0
-                            ?
-                            <div className="news-card-list__container">
-                                <p className="news-card-list__subtitle">Результаты поиска</p>
-                                <div className="news-card-list__results">
-                                    {props.searchNews.map((card, i) => (
-                                        <NewsCard 
-                                            card={card} 
-                                            key={i}
-                                            loggedIn={props.loggedIn}
-                                            activePage={props.activePage}
-                                        />
-                                    ))}
-                                </div>
-                                <button className="news-card-list__button" type="button">Показать ещё</button>
-                            </div>
-                            :
-                            <>
-                                <img className="news-card-list__not-found-image" src={notFoundIcon} alt="Грустный смайлик" />
-                                <p className="news-card-list__not-found-subtitle">Ничего не найдено</p>
-                                <p className="news-card-list__not-found-text">К сожалению по вашему запросу ничего не найдено.</p>
-                            </>
-                        }
-                    </section>
-                    :
-                    <section className="news-card-list">
-                        <div className="news-card-list__container">
-                            <div className="news-card-list__results">
-                                {props.savedNews.map((card, i) => (
-                                    <NewsCard 
-                                        card={card}
-                                        key={i}
-                                        loggedIn={props.loggedIn}
-                                        activePage={props.activePage}
-                                    />
-                                ))}
-                            </div>
-                        </div>
-                    </section>
-            }
-        </>
-    )
-}
+  const [addMoreButton, setAddMoreButton] = useState(true);
+  const [newsArticles, setNewsArticles] = useState([]);
+  
+  React.useEffect(() => {
+    props.articles && setNewsArticles(props.articles.slice(0, 3));
+  }, [props.articles]);
+
+  function addArticle() {
+    setNewsArticles(props.articles.slice(0, newsArticles.length + 3));
+    if (newsArticles.length >= props.articles.length - 3) {
+      setAddMoreButton(false);
+    }
+  };
+
+  return (
+    newsArticles.length > 0
+      ?
+      <section className="news-card-list">
+        <h2 className="news-card-list__title">Результаты поиска</h2>
+        <div className="news-card-list__block">
+          {newsArticles.map((article, key) => (
+            <NewsCard
+              image={article.urlToImage}
+              link={article.url}
+              date={article.publishedAt}
+              title={article.title}
+              text={article.description}
+              source={article.source.name}
+              key={key}
+
+              article={article}
+              saveArticles={props.saveArticles}
+              articlesNews={props.articles}
+              keyword={props.keyword}
+
+              addToSaveArticles={props.addToSaveArticles}
+              checkArticles={props.checkArticles}
+              setIsEditMarker={props.setIsEditMarker}
+              isEditMarker={props.isEditMarker}
+              handleLoginPopupClick={props.handleLoginPopupClick}
+              loggedIn={props.loggedIn}
+            />
+          ))}
+        </div>
+        <button 
+          onClick={addArticle} 
+          className={`news-card-list__button ${addMoreButton 
+          ? '' 
+          : 'news-card-list__button_disabled'}`}
+        >
+          Показать еще
+        </button>
+      </section>
+      : ''
+  )
+};
 
 export default NewsCardList;

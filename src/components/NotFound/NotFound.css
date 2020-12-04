@@ -1,0 +1,41 @@
+.not-found {
+    background: #f5f6f7;
+    max-width: 1440px;
+    margin: 0 auto;
+    display: none;
+    flex-direction: column;
+    justify-content: center;
+}
+  
+.not-found_active {
+    display: flex;
+}
+  
+.not-found__image {
+    width: 74px;
+    height: 74px;
+    margin-top: 86px;
+    margin: 80px auto 0;
+}
+  
+.not-found__title {
+    color: #1a1b22;
+    max-width: 356px;
+    margin: 20px auto 0 auto;
+    text-align: center;
+    font-family: 'Roboto Slab', 'Arial', sans-serif;
+    font-weight: 400;
+    font-size: 26px;
+    line-height: 30px;
+}
+  
+.not-found__subtitle {
+    color: #b6bcbf;
+    max-width: 356px;
+    margin: 16px auto 80px auto;
+    text-align: center;
+    font-family: 'Roboto', 'Arial', sans-serif;
+    font-weight: 400;
+    font-size: 18px;
+    line-height: 24px;
+}
